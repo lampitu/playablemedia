@@ -34,11 +34,11 @@
 
       <div id="game-screen" class="hidden text-center mt-4">
         <div class="border p-6 rounded bg-gray-50">
-          <div id="icon" class="text-5xl mb-4">❓</div>
+          <div id="icon" class="text-5xl mb-4 h-12">❓</div>
           <h3 id="title" class="text-xl font-bold text-blue-900 mb-2">Title</h3>
-          <p id="desc" class="text-gray-600 mb-8 h-24">Description</p>
+          <p id="desc" class="text-gray-600 mb-12 h-32">Description</p>
           
-          <div class="flex justify-center gap-10">
+          <div class="flex justify-center gap-10 mt-8">
             <button onclick="clickNo()" class="bg-red-500 text-white px-6 py-3 rounded font-bold hover:bg-red-600">
               NO ❌
             </button>
@@ -104,8 +104,8 @@
     let myCards = [
       {
         name: "The Local Boxing Class",
-        text: "Go to a specialized "Rock Steady" boxing class that is starting across town. It’s great for your rigidity and tremors, but the gym is full of "typical" athletes, and you’re worried about people watching your shaky hands as you put on your gloves.",
-        emoji: "🗣️",
+        text: "Go to a specialized 'Rock Steady' boxing class that is starting across town. It’s great for your rigidity and tremors, but the gym is full of 'typical' athletes, and you’re worried about people watching your shaky hands as you put on your gloves.",
+        emoji: "",
         // flattened the object so it's messier
         yesSoc: 20, yesEmo: -10, yesPhy: -10,
         noSoc: -15, noEmo: 10, noPhy: 10
@@ -113,63 +113,63 @@
       {
         name: "Your Daughter’s Birthday",
         text: "It’s a garden party. Play with the kids and ask someone for help to navigate the uneven grass and stairs. You hate asking for help when everyone else is busy celebrating.",
-        emoji: "🏃",
+        emoji: "",
         yesSoc: 20, yesEmo: -15, yesPhy: -20,
         noSoc: -10, noEmo: 20, noPhy: 20
       },
       {
         name: "Parkinson's Support Group",
         text: "Attend the local support group. Talking about the disease is emotionally freeing, but getting there takes physical effort.",
-        emoji: "❤️",
+        emoji: "",
         yesSoc: 10, yesEmo: 20, yesPhy: -15,
         noSoc: -10, noEmo: -15, noPhy: 10
       },
       {
         name: "Dance Class",
         text: "Attend a specialized dance class. It's beneficial for your motor skills, but makes you tired.",
-        emoji: "🏃",
-        yesSoc: 10, yesEmo: -15, yesPhy: 15,
-        noSoc: -10, noEmo: 10, noPhy: -15
+        emoji: "",
+        yesSoc: 10, yesEmo: -15, yesPhy: -15,
+        noSoc: -10, noEmo: 10, noPhy: 10
       },
       {
-        name: "The Morning "Fog"",
+        name: "The Morning 'Fog'",
         text: "You woke up feeling heavy and unmotivated. Go for a short walk as it would help your stiffness, but the effort to even put on your shoes feels like climbing a mountain.",
-        emoji: "🗣️",
+        emoji: "",
         yesSoc: -10, yesEmo: -10, yesPhy: 10,
         noSoc: 0, noEmo: 10, noPhy: -15
       },
       {
         name: "The Grocery Run",
         text: "The fridge is empty. Go to the store for some light exercise, however, it’s been raining and the floors will be slippery. You’re already feeling fatigued, and the thought of losing your balance in the aisle is terrifying.",
-        emoji: "❤️",
+        emoji: "",
         yesSoc: 10, yesEmo: -15, yesPhy: 20,
         noSoc: -10, noEmo: 20, noPhy: -15
       },
       {
         name: "Dinner at a Busy Restaurant",
         text: "Your friends invited you out. Go to a restaurant with them. Maintaining friendships is great for you, but your slowness in eating and occasional tremors make you feel like the entire restaurant is judging you. You’re worried you’ll make a mess or slow down the table.",
-        emoji: "🏃",
+        emoji: "",
         yesSoc: 25, yesEmo: -10, yesPhy: -10,
         noSoc: -20, noEmo: 15, noPhy: 15
       },
       {
         name: "Hiking with Family",
         text: "The family is going for a 20-minute walk in the woods. Join them on the walk but be aware that your balance is off today. If you go, they’ll have to walk at half-speed and hold your arm the whole time.",
-        emoji: "🗣️",
+        emoji: "",
         yesSoc: 20, yesEmo: -20, yesPhy: -20,
         noSoc: -15, noEmo: 10, noPhy: 10
       },
       {
         name: "The Support Group Yoga Class",
-        text: "There’s a "Yoga for PD" class. It’s a safe space, but seeing others with less symptoms than you makes you depressed and remind you of the fact that you have Parkinson’s.",
-        emoji: "🏃",
+        text: "There’s a 'Yoga for PD' class. It’s a safe space, but seeing others with less symptoms than you makes you depressed and remind you of the fact that you have Parkinson’s.",
+        emoji: "",
         yesSoc: 20, yesEmo: -20, yesPhy: 20,
         noSoc: -20, noEmo: 10, noPhy: -25
       },
       {
         name: "Weekend Trip",
         text: "Go on a weekend getaway with a group of old friends. The travel and keeping up can feel exhausting, but the memories are priceless.",
-        emoji: "🗣️",
+        emoji: "",
         yesSoc: 30, yesEmo: -15, yesPhy: -50,
         noSoc: -20, noEmo: 10, noPhy: 20
       }
@@ -216,18 +216,18 @@
     // separated the button clicks into two functions
     function clickYes() {
       let currentCard = myCards[step];
-      soc = soc + currentCard.yesSoc;
-      emo = emo + currentCard.yesEmo;
-      phy = phy + currentCard.yesPhy;
+      soc = Math.max(0, Math.min(soc + currentCard.yesSoc, 100));
+      emo = Math.max(0, Math.min(emo + currentCard.yesEmo, 100));
+      phy = Math.max(0, Math.min(phy + currentCard.yesPhy, 100));
       
       checkGame();
     }
 
     function clickNo() {
       let currentCard = myCards[step];
-      soc = soc + currentCard.noSoc;
-      emo = emo + currentCard.noEmo;
-      phy = phy + currentCard.noPhy;
+      soc = Math.max(0, Math.min(soc + currentCard.noSoc, 100));
+      emo = Math.max(0, Math.min(emo + currentCard.noEmo, 100));
+      phy = Math.max(0, Math.min(phy + currentCard.noPhy, 100));
       
       checkGame();
     }
@@ -239,11 +239,11 @@
       if (soc <= 0) {
         document.getElementById("game-screen").style.display = "none";
         document.getElementById("lose-screen").style.display = "block";
-        document.getElementById("lose-text").innerText = "You have no social life left.";
+        document.getElementById("lose-text").innerText = "Your social battery is up.";
       } else if (emo <= 0) {
         document.getElementById("game-screen").style.display = "none";
         document.getElementById("lose-screen").style.display = "block";
-        document.getElementById("lose-text").innerText = "You are too sad to continue.";
+        document.getElementById("lose-text").innerText = "You are too emotional drained to continue.";
       } else if (phy <= 0) {
         document.getElementById("game-screen").style.display = "none";
         document.getElementById("lose-screen").style.display = "block";
@@ -260,5 +260,3 @@
       }
     }
   </script>
-</body>
-</html>
